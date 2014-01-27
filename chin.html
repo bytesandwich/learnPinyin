@@ -5,11 +5,27 @@
 
 <style type="text/css">
 body {font-family: "Trebuchet MS"; sans-serif; }
-td {font: 80% "Times New Roman",serif;}
+td {
+      color: "darkslategray";
+      font-family: "Helvetica";
+      padding: 0 2px; 
+}
+
+a:hover {
+      text-decoration: underline;
+}
+
+#tones { 
+      display: none;
+      padding: 2px;
+      border: 1px solid black;
+      border-radius: 3px;
+      background-color: white;
+      position: absolute;
+}
 
 a:link {text-decoration: none;}
 a:visited {text-decoration: none;}
-a:hover {text-decoration: none;}
 
 a.blue:link    {color: #000071;} a.blue:visited    {color: #000030;}
 a.green:link   {color: #007100;} a.green:visited   {color: #003000;}
@@ -26,15 +42,13 @@ a.orange:link  {color: #794211;} a.orange:visited  {color: #302005;}
 
 <h1 style="font-family: &#39;Trebuchet MS&#39;,sans-serif;">Mandarin Chinese Phonetics Table</h1>
 
-<table width="100%" id="tones">
- <tr>
-    <td width="20%"><a data-tsyl="pen_bpmf">pen</a><br><div style="font-size: 35%">(BPMF spelling)</div></td>
-    <td width="20%"><a data-tsyl="pen1">p&#275;n</a></td>
-    <td width="20%"><a data-tsyl="pen2">p&#233;n</a></td>
-    <td width="20%"><a data-tsyl="pen3">p&#283;n</a></td>
-    <td width="20%"><a data-tsyl="pen4">p&#232;n</a></td>
-</tr>
-</table>
+<div id="tones">
+    <span><a data-tsyl="pen_bpmf">pen</a></span>
+    <span><a data-tsyl="pen1">p&#275;n</a></span>
+    <span><a data-tsyl="pen2">p&#233;n</a></span>
+    <span><a data-tsyl="pen3">p&#283;n</a></span>
+    <span><a data-tsyl="pen4">p&#232;n</a></span>
+</div>
 
 <table cellspacing="1" cellpadding="0">
    <tbody><tr bgcolor="#dddddd">
@@ -852,21 +866,32 @@ Jack Phelan amended from -- Steven Kryskalla<br>
       var play = function(tsyl) {
             var audio = document.getElementById("myAudio");
             audio.src="http://lost-theory.org/chinese/phonetics/sounds/"+tsyl+".wav"
-            audo.play()
       }
 
-      var tones = document.getElementById("tones").getElementsByTagName("a")
+      var tonesRow = document.getElementById("tones")
+      var tones = tonesRow.getElementsByTagName("a")
       var syls = document.getElementsByClassName("syl")
       var len = syls.length
       for (var i = 0; i < len; i++) {
             syls[i].onclick = function(e) {
                   picktones(e.target.dataset.syl)
+                  moveTonesRowAndToggle(e)
             }
       }
       len = tones.length
       for (i = 0; i < len; i++) {
             tones[i].onclick = function(e) {
                   play(e.target.dataset.tsyl)
+            }
+      }
+
+      var moveTonesRowAndToggle = function(e) {
+            tonesRow.style.left = e.x + 5
+            tonesRow.style.top = e.y + 5
+            if (tonesRow.style.display == "none") {
+                  tonesRow.style.display = "inline-block"
+            } else {
+                  tonesRow.style.display = "none"
             }
       }
 

@@ -849,7 +849,6 @@ a.orange:link  {color: #794211;} a.orange:visited  {color: #302005;}
       <td><a class="syl orange" data-syl="wu">wu</a></td>
    </tr>
 </tbody></table>
-<audio id="myAudio" src="" autoplay controls />
 <br>
 <div style="text-align:center;">
 <div style="width:500px; margin-left:auto; margin-right:auto; background: #f3f3f3; border: 10px solid #f3f3f3;">
@@ -859,6 +858,15 @@ All sound files originally from Dr. John Jinghua Yin's great <a href="http://www
 
 
 <hr>
+
+<div id="random-test">
+  word a: <input type=text id="random-test-a"></input>
+  word b: <input type=text id="random-test-b"></input>
+  <button id="random-test-button">test your listening between a and b</button>
+  <button id="random-test-button-show">show pinyin</button>
+</div>
+<audio id="myAudio" src="" autoplay controls />
+
 Jack Phelan amended from -- Steven Kryskalla<br>
 
 
@@ -904,6 +912,24 @@ Jack Phelan amended from -- Steven Kryskalla<br>
                   tones[i].innerHTML = PinyinConverter.convert(syl + i)
             }
       }
+      var currentTest = null
+
+      var randomTest = function() {
+	var a = document.getElementById("random-test-a").value
+	var b = document.getElementById("random-test-b").value
+	if (Math.random() < .5) {
+	    currentTest = a
+	} else {
+	    currentTest = b
+	}
+	play(currentTest)
+      }
+
+      var showPinyin = function() {
+	  alert(currentTest)
+      }
+      document.getElementById("random-test-button").onclick = randomTest
+      document.getElementById("random-test-button-show").onclick = showPinyin
 
 </script>
 </body></html>
